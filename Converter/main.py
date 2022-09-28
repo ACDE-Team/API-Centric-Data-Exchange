@@ -23,11 +23,14 @@ api_urls = [
 ]
 
 
-@app.get("/")
-async def get_purchase_orders():
-    return services.xml_to_json(api_urls)
 
 @app.get("/get_po/")
 async def get_purchase_order(link:str):
-    link = [link]
-    return services.xml_extractor(link)
+    data_list = services.get_data(link)
+    return services.xml_to_json(data_list)
+
+@app.get("/get_xml/")
+async def get_xml():
+    data_list = services.get_data("https://test.mymxp.com/x/?27FC555D2A8B4163B8E13038E2098F3D")
+    json_data = services.xml_to_json(data_list)
+    return services.json_to_xml(json_data[1])
