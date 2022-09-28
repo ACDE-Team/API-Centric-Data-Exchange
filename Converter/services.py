@@ -11,7 +11,15 @@ def link_extractor(link):
 
     return [po_header_link, po_items_link]
 
+def get_data(link):
 
+    links = link_extractor(link)
+
+    po_header = requests.get(links[0])
+    po_items = requests.get(links[1])
+    
+
+    return [po_header.text, po_items.text]
 
 def xml_to_json(links):
     return_value = []
