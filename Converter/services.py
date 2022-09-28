@@ -26,6 +26,17 @@ def get_data(link):
 
 def xml_to_json(data_list):
     data_dict = xmltodict.parse(data_list[1])['DATAPACKET']['ROWDATA']['ROW']
+    attribute = ["@Shipment_Quantity", "@Company", "@Destination", "@PO_Number", "@Line_Number", "@Item_Code", "@Item_Description", "@Specification", "@General_Spec", "@Quality_Spec", "@Packing_Specification", "@Unit", "@Quantity", "@Unit_Cost",
+                 "@Total_Cost", "@Comment_By_Purchasing", "@Manufacturer_Name", "@Manufacturer_Ref_No", "@Supplier_Nbr", "@GLAccountName", "@LineGUID", "@PO_Login_Code", "@ClientID", "@Delivery_Place", "@Delivery_Date", "@Deliver_Goods_By"]
+
+    counter = 0
+
+    while counter < len(attribute):
+        for i in data_dict:
+            i[attribute[counter][1:]] = i.pop(attribute[counter])
+            # print(counter)
+        counter += 1
+
     return_value = [data_list[0]['data'], data_dict]
     return return_value
 
